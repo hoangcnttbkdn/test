@@ -30,11 +30,11 @@ client.on('error', err => {
 });
 
 app.get('/', (req, res) => {
-  connection.query('SELECT * FROM user;', (err, rows) => {
-    if (err) throw err;
-    res.send(rows);
-  });
-//    res.send('messgae');
+  // connection.query('SELECT * FROM user;', (err, rows) => {
+  //   if (err) throw err;
+  //   res.send(rows);
+  // });
+  res.send('messgae');
 });
 
 app.listen(3000, () => {
