@@ -34,7 +34,7 @@ app.get('/', (req, res) => {
   //   if (err) throw err;
   //   res.send(rows);
   // });
-  res.send('messgae');
+  res.send('test app');
 });
 
 app.listen(3000, () => {
