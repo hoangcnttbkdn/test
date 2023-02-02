@@ -1,22 +1,42 @@
-const express = require('express')
-var mysql = require('mysql');
+const express = require('express');
+const mysql = require('mysql');
+const redis = require('redis');
 
-const app = express()
-const port = 3000
+const app = express();
+const connection = mysql.createConnection({
+  host: 'mysql',
+  user: 'hoang',
+  password: '123qwe!@',
+  database: 'testapp'
+});
 
+connection.connect((err) => {
+  if (err) throw err;
+  console.log('Connected to MySQL');
+});
 
-var con = mysql.createConnection({
-  host: "localhost",
-  user: "hoang",
-  password: "123qwe!@",
-  database: "testapp"
+const client = redis.createClient({
+    url: 'redis://redis:6379'
+});
+
+client.connect();
+
+client.on('connect', function() {
+    console.log('Connected to Redis');
+});
+
+client.on('error', err => {
+    console.log('Error ' + err);
 });
 
 app.get('/', (req, res) => {
-  var a = 1
-  res.send('hihi haha hehe')
-})
+  connection.query('SELECT * FROM user;', (err, rows) => {
+    if (err) throw err;
+    res.send(rows);
+  });
+//    res.send('messgae');
+});
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+app.listen(3000, () => {
+  console.log('Express app listening on port 3000');
+});
