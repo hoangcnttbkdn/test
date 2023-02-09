@@ -15,5 +15,3 @@ COPY . .
 EXPOSE ${APP_PORT}
 
 CMD ["npm", "start"]
-
-# CMD [ "node", "index.js" ]
